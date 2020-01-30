@@ -29,9 +29,8 @@ const addLogin = function(allLogins, login) {
   }
 
 //   console.log('Логин успешно добавлен!');
-  return 'Логин успешно добавлен!';
   allLogins.push(login);
-
+  return 'Логин успешно добавлен!';
 };
 
 /*
