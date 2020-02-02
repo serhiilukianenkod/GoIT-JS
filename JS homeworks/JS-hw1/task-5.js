@@ -27,8 +27,9 @@ switch (userChoise.toLowerCase()){
     case deliveryCountries[4].toLowerCase():
         indexOfCountry = 4;
         break;
+
+    default: alert('В вашей стране доставка не доступна');
     }
-if (indexOfCountry===undefined) alert('В вашей стране доставка не доступна'); 
-else{
+if (indexOfCountry!==undefined) {
 message = `Доставка в ${deliveryCountries[indexOfCountry]} будет стоить ${deliveryPrices[indexOfCountry]} кредитов`;
 console.log(message);}
