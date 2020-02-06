@@ -41,6 +41,7 @@ const Transaction = {
     deposit(amount) {
         const newTransaction = this.createTransaction(amount, 'deposit');
         this.transactions.push(newTransaction);
+        console.log(`ваш счет пополнен на: ${amount}`)
         this.balance += amount;
     },
   
@@ -59,6 +60,7 @@ const Transaction = {
         else{
             const newTransaction = this.createTransaction(amount, 'withdraw');
             this.transactions.push(newTransaction);
+            console.log(`с вашего счета снято средств: ${amount}`)
             this.balance -= amount;
         }
     },
@@ -76,7 +78,7 @@ const Transaction = {
     getTransactionDetails(id) {
         for (let i = 0; i < this.transactions.length; i++)
             if (this.transactions[i].id === id) 
-                return this.transactions[i];
+                return /*this.transactions[i];*/`транзакция id ${this.transactions[i].id} тип ${this.transactions[i].type} сума ${this.transactions[i].amount}`
 
         return('транзакции с таким id не существует');
 
@@ -84,7 +86,7 @@ const Transaction = {
   
     /*
      * Метод возвращает количество средств
-     * определенного типа транзакции из всей истории транзакций
+     * определенного типа танзакции изр всей истории транзакций
      */
     getTransactionTotal(type) {
      let transactionTotal = 0;
@@ -97,20 +99,50 @@ const Transaction = {
     },
   };
 
-//---------------------------test-----------
+//---------------------------main-----------
 
-console.log(account.deposit(12));
-console.log(account.deposit(1562));
-console.log(account.withdraw(162));
-console.log(account.deposit(1));
+let userChoice;
+const variants = ['balance', 'deposit', 'withdraw', 'find ID', 'deposit balance', 'withdraw balance'];
 
-console.log(account.withdraw(1235642));
+do{
+    userChoice = prompt(`что вы хотите сделать?
+    1 - проверить баланс
+    2 - пополнить счет
+    3 - снять со счета
+    4 - выбрать транзакцию по id
+    5 - количество средств по транзакции пополнения
+    6 - количество средств по транзакции пополнения`);
+    // console.log(userChoice);
 
-console.log(account.getBalance());
 
 
-console.log(account.getTransactionDetails(2));
-console.log(account.getTransactionTotal('deposit'));
-console.log(account.getTransactionTotal('withdraw'));
+    switch (variants[Number(userChoice)-1]) {
+        case 'balance':
+            console.log('баланс ', account.getBalance());
+            break;
+        
+        case 'deposit':
+            account.deposit(Number(prompt('введите суму пополнения')));
+            break;
 
-console.log(account.transactions);
+        case 'withdraw':
+            account.withdraw(Number(prompt('введите суму которую хотите снять со счета')));
+            break;
+
+        case 'find ID':
+            console.log(account.getTransactionDetails(Number(prompt('введите id транзакции которую хотите просмотреть'))));
+            break;
+
+        case 'deposit balance':
+            console.log(account.getTransactionTotal('deposit'));
+            break;
+
+        case 'withdraw balance':
+            console.log(account.getTransactionTotal('withdraw'));
+            break;
+
+        default: console.log('выберите из предложенных вариантов!!!!!! чтобы закончить нажмите отмена');
+
+    }
+
+}while(userChoice!==null);
