@@ -7,19 +7,19 @@
 const Transaction = {
     DEPOSIT: 'deposit',
     WITHDRAW: 'withdraw',
-  };
-  
-  /*
-   * Каждая транзакция это объект со свойствами: id, type и amount
-   */
-  
-  const account = {
+};
+
+/*
+ * Каждая транзакция это объект со свойствами: id, type и amount
+ */
+
+const account = {
     // Текущий баланс счета
     balance: 0,
-  
+
     // История транзакций
     transactions: [],
-  
+
     /*
      * Метод создает и возвращает объект транзакции.
      * Принимает сумму и тип транзакции.
@@ -31,7 +31,7 @@ const Transaction = {
             amount
         }
     },
-  
+
     /*
      * Метод отвечающий за добавление суммы к балансу.
      * Принимает сумму танзакции.
@@ -44,7 +44,7 @@ const Transaction = {
         console.log(`ваш счет пополнен на: ${amount}`)
         this.balance += amount;
     },
-  
+
     /*
      * Метод отвечающий за снятие суммы с баланса.
      * Принимает сумму танзакции.
@@ -55,56 +55,56 @@ const Transaction = {
      * о том, что снятие такой суммы не возможно, недостаточно средств.
      */
     withdraw(amount) {
-        if (amount > this.balance) 
+        if (amount > this.balance)
             console.log('снятие такой суммы не возможно, недостаточно средств.');
-        else{
+        else {
             const newTransaction = this.createTransaction(amount, 'withdraw');
             this.transactions.push(newTransaction);
             console.log(`с вашего счета снято средств: ${amount}`)
             this.balance -= amount;
         }
     },
-  
+
     /*
      * Метод возвращает текущий баланс
      */
     getBalance() {
         return this.balance;
     },
-  
+
     /*
      * Метод ищет и возвращает объект транзации по id
      */
     getTransactionDetails(id) {
         for (let i = 0; i < this.transactions.length; i++)
-            if (this.transactions[i].id === id) 
-                return /*this.transactions[i];*/`транзакция id ${this.transactions[i].id} тип ${this.transactions[i].type} сума ${this.transactions[i].amount}`
+            if (this.transactions[i].id === id)
+                return /*this.transactions[i];*/ `транзакция id ${this.transactions[i].id} тип ${this.transactions[i].type} сума ${this.transactions[i].amount}`
 
-        return('транзакции с таким id не существует');
+        return ('транзакции с таким id не существует');
 
     },
-  
+
     /*
      * Метод возвращает количество средств
      * определенного типа танзакции изр всей истории транзакций
      */
     getTransactionTotal(type) {
-     let transactionTotal = 0;
-       for (let i = 0; i < this.transactions.length; i++){
-        if (this.transactions[i].type === type) 
-        transactionTotal += this.transactions[i].amount;
+        let transactionTotal = 0;
+        for (let i = 0; i < this.transactions.length; i++) {
+            if (this.transactions[i].type === type)
+                transactionTotal += this.transactions[i].amount;
         }
-        
-        return(`Итоговая сумма то операции ${type} составляет ${transactionTotal}`);
+
+        return (`Итоговая сумма то операции ${type} составляет ${transactionTotal}`);
     },
-  };
+};
 
 //---------------------------main-----------
 
 let userChoice;
 const variants = ['balance', 'deposit', 'withdraw', 'find ID', 'deposit balance', 'withdraw balance'];
 
-do{
+do {
     userChoice = prompt(`что вы хотите сделать?
     1 - проверить баланс
     2 - пополнить счет
@@ -116,11 +116,11 @@ do{
 
 
 
-    switch (variants[Number(userChoice)-1]) {
+    switch (variants[Number(userChoice) - 1]) {
         case 'balance':
             console.log('баланс ', account.getBalance());
             break;
-        
+
         case 'deposit':
             account.deposit(Number(prompt('введите суму пополнения')));
             break;
@@ -141,8 +141,9 @@ do{
             console.log(account.getTransactionTotal('withdraw'));
             break;
 
-        default: console.log('выберите из предложенных вариантов!!!!!! чтобы закончить нажмите отмена');
+        default:
+            console.log('выберите из предложенных вариантов!!!!!! чтобы закончить нажмите отмена');
 
     }
 
-}while(userChoice!==null);
+} while (userChoice !== null);

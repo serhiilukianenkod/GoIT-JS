@@ -14,7 +14,7 @@ const inventory = {
   },
 };
 
-const invokeInventoryAction = function(itemName, action) {
+const invokeInventoryAction = function (itemName, action) {
   console.log(`Invoking action on ${itemName}`);
   action.call(inventory, itemName);
 };
