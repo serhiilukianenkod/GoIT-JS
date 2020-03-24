@@ -22,11 +22,9 @@ closeModalBnt.addEventListener('click', handleCloseModal);
 
 function hendleClick(event) {
     if (event.target === event.currentTarget) return;
-    document.querySelector('.lightbox__image').setAttribute('src', event.target.dataset.original);
-    document.querySelector('.lightbox__image').setAttribute('alt', event.target.alt);
-    lightbox.classList.add('is-open');
-    lightbox.addEventListener('click', handleBackdropClick);
-    window.addEventListener('keyup', handleKeyPress);
+
+    event.target.parentNode.classList.add('js_active');
+    isActive();
 }
 
 function handleCloseModal() {
@@ -43,5 +41,32 @@ function handleBackdropClick(event) {
 
 function handleKeyPress(event) {
     if (event.code === 'Escape') handleCloseModal();
+    if (event.code === 'ArrowLeft') setActiveItem(true);
+    if (event.code === 'ArrowRight') setActiveItem(false);
+}
 
+function isActive() {
+    const active = document.querySelector('.js_active img');
+
+    document.querySelector('.lightbox__image').setAttribute('src', active.dataset.original);
+    document.querySelector('.lightbox__image').setAttribute('alt', active.alt);
+    lightbox.classList.add('is-open');
+    lightbox.addEventListener('click', handleBackdropClick);
+    window.addEventListener('keyup', handleKeyPress);
+}
+
+function setActiveItem(isleft) {
+    const active = document.querySelector('.js_active');
+
+    if (isleft && active.previousElementSibling) {
+        active.previousElementSibling.classList.add('js_active');
+        active.classList.remove('js_active');
+    }
+
+    if (!isleft && active.nextElementSibling) {
+        active.nextElementSibling.classList.add('js_active');
+        active.classList.remove('js_active');
+    }
+
+    isActive();
 }
