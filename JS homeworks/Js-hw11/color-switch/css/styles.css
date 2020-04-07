@@ -1,0 +1,38 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    width: 100vw;
+    min-height: 100vh;
+    position: relative;
+}
+
+.btnWrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+button {
+    width: 200px;
+    height: 100px;
+    margin: 25px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.rgb {
+    margin: 0 35px;
+    /* width: 450px; */
+    height: 200px;
+    text-transform: uppercase;
+    font-size: 50px;
+}
